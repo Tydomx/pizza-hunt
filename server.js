@@ -13,7 +13,7 @@ app.use(require('./routes'));
 
 // tells Mongoose which DB we want to connect to. If env exists it'll use that.
 // otherwise go to the local DB link
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/pizza-hunt', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/pizza-hunt', {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 });
