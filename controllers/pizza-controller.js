@@ -6,6 +6,18 @@ const pizzaController = {
 	// GET /api/pizzas
 	getAllPizza(req, res) {
 		Pizza.find({})
+			// .populate to populate comments
+			.populate({
+				path: 'comments',
+				// this tells mongoose that we don't care about __v field on comments either, '-' means that we don't want it to be returned
+				// without the '-' it would only return __v field
+				select: '-__v'
+			})
+			// this let's us not include pizza's __v field
+			.select('-__v')
+			// this sorts in DESC order by _id value
+			// gets newest pizza bc a timestamp value is hidden inside MongoDB ObjectId
+			.sort({ _id: -1 })
 			.then(dbPizzaData => res.json(dbPizzaData))
 			.catch(err => {
 				console.log(err);
@@ -17,6 +29,11 @@ const pizzaController = {
 	// if can't find pizza with _id, check whether returning value is empty and send 404 status bakc to alert users that doesn't exist
 	getPizzaById({ params }, res) {
 		Pizza.findOne({ _id: params.id })
+			.populate({
+				path: 'comments',
+				select: '-__v'
+			})
+			.select('-__v')
 			.then(dbPizzaData => {
 				// if no pizza found, send 404
 				if (!dbPizzaData) {
