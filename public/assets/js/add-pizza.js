@@ -68,6 +68,9 @@ const handlePizzaSubmit = event => {
     })
     .catch(err => {
       console.log(err);
+      // when user tries to submit new pizza without internet connection, instead of app failing, data will be stored in new_pizza object store
+      // in browser's IndexedDB database called 'pizza_hunt'
+      saveRecord(formData);
     });
 };
 
