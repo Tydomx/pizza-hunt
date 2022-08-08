@@ -90,4 +90,4 @@ function uploadPizza() {
 
 // listen for app coming back online
 // listen for internet connection using online event, if online execute uploadPizza()
-window.appEventListener('online', uploadPizza);
+window.addEventListener('online', uploadPizza);
